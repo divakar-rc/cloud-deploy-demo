@@ -10,4 +10,12 @@ steps:
   - name: 'gcr.io/cloud-builders/docker'
     args: ['push', 'us-west2-docker.pkg.dev/${PROJECT_ID}/docker-repo/cloud-deploy-demo']
 
+  - name: "gcr.io/cloud-builders/gke-deploy"
+    args:
+      - run
+      - --filename='/workspace/kube-config.yaml'
+      - --image=us-west2-docker.pkg.dev/${PROJECT_ID}/docker-repo/cloud-deploy-demo
+      - --location=us-west2
+      - --cluster=gke-cluster
+
 images: ['us-west2-docker.pkg.dev/${PROJECT_ID}/docker-repo/cloud-deploy-demo']
